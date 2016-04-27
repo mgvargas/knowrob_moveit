@@ -28,13 +28,31 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <knowrob_moveit/knowrob_moveit.hpp>
 #include <ros/ros.h>
+#include <knowrob_moveit/knowrob_moveit.hpp>
+#include <string>
+#include <urdf/model.h>
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "collision_checker");
+  ros::init(argc, argv, "planning_scene");
   ros::NodeHandle nh("~");
+
+  std::string robot_description;
+  if (!nh.getParam("robot_description", robot_description))
+  {
+    ROS_ERROR("Parameter 'robot_description' not found in namespace '%s'.", 
+        nh.getNamespace().c_str());
+    return 0;
+  }
+
+  urdf::Model robot_model;
+  if (!robot_model.initString(robot_description))
+  {
+    ROS_ERROR("Could not parse robot description.");
+    return 0;
+  }
+
 
   // TODO: implement me
   ROS_DEBUG("KnowRob-MoveIt collision checker up.");

@@ -22,13 +22,13 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 ## either from message generation or dynamic reconfigure
 # add_dependencies(knowrob_collision_checking ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-add_executable(collision_checker_node src/${PROJECT_NAME}/collision_checker_node.cpp)
+add_executable(planning_scene_node src/${PROJECT_NAME}/collision_checker_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(knowrob_collision_checking_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-target_link_libraries(collision_checker_node ${catkin_LIBRARIES})
+target_link_libraries(planning_scene_node ${catkin_LIBRARIES})
 
 ## Add gtest based cpp test target and link libraries
 # catkin_add_gtest(${PROJECT_NAME}-test test/test_knowrob_collision_checking.cpp)
