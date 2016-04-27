@@ -32,5 +32,50 @@
 #define KNOWROB_MOVEIT_COLLISION_CHECKER_HPP 
 
 #include <moveit/planning_scene/planning_scene.h>
+#include <sensor_msgs/JointState.h>
+#include <vector>
 
+namespace knowrob_moveit
+{
+  // TODO: try to reuse sth from MoveIt instead of this
+  class Collision {};
+
+  // TODO: try to reuse sth from MoveIt instead of this
+  class CollisionObject {};
+
+  // TODO: try to reuse sth from MoveIt instead of this
+  class CollisionChecker
+  {
+    public:
+      CollisionChecker()
+      {
+        // TODO: implement me
+      }
+      ~CollisionChecker() {}
+  
+      void set_robot() 
+      {
+        // TODO: implement me
+      }
+
+      void set_collision_objects(const std::vector<CollisionObject>& objects)
+      {
+        // TODO: implement me
+      }
+
+      void set_joint_states(const sensor_msgs::JointState& joint_state)
+      {
+        // TODO: implement me
+      }
+
+      std::vector<Collision> get_collisions() const
+      {
+
+      }
+  
+    private:
+      planning_scene::PlanningScenePtr planning_scene_ptr_;
+  
+  };
+}
 #endif // KNOWROB_MOVEIT_COLLISION_CHECKER_HPP

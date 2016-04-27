@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(knowrob_moveit)
 
-find_package(catkin REQUIRED roscpp moveit_core)
+find_package(catkin REQUIRED roscpp moveit_core sensor_msgs)
 
 catkin_package(
   INCLUDE_DIRS include
