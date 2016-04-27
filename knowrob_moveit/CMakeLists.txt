@@ -1,16 +1,16 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(knowrob_moveit_collision_checker)
+project(knowrob_moveit)
 
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED roscpp moveit_core)
 
 catkin_package(
-#  INCLUDE_DIRS include
+  INCLUDE_DIRS include
 #  LIBRARIES knowrob_collision_checking
 #  CATKIN_DEPENDS other_catkin_pkg
 #  DEPENDS system_lib
 )
 
-include_directories(include)
+include_directories(include ${catkin_INCLUDE_DIRS})
 
 ## Declare a C++ library
 # add_library(knowrob_collision_checking
@@ -22,17 +22,13 @@ include_directories(include)
 ## either from message generation or dynamic reconfigure
 # add_dependencies(knowrob_collision_checking ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-## Declare a C++ executable
-# add_executable(knowrob_collision_checking_node src/knowrob_collision_checking_node.cpp)
+add_executable(collision_checker_node src/${PROJECT_NAME}/collision_checker_node.cpp)
 
 ## Add cmake target dependencies of the executable
 ## same as for the library above
 # add_dependencies(knowrob_collision_checking_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-## Specify libraries to link a library or executable target against
-# target_link_libraries(knowrob_collision_checking_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(collision_checker_node ${catkin_LIBRARIES})
 
 ## Add gtest based cpp test target and link libraries
 # catkin_add_gtest(${PROJECT_NAME}-test test/test_knowrob_collision_checking.cpp)
