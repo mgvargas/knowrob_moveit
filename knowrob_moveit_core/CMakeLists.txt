@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(knowrob_moveit_core)
 
-find_package(catkin REQUIRED 
+find_package(catkin REQUIRED COMPONENTS
   roscpp 
   moveit_core 
   message_runtime
@@ -11,7 +11,7 @@ find_package(catkin REQUIRED
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES knowrob_collision_checking
-#  CATKIN_DEPENDS other_catkin_pkg
+  CATKIN_DEPENDS knowrob_moveit_msgs
 #  DEPENDS system_lib
 )
 
