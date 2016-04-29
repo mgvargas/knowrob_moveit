@@ -10,7 +10,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 add_service_files(
   FILES
-  CollisionCheck.srv
+  CheckCollisions.srv
 )
 
 generate_messages(

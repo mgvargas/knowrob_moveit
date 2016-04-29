@@ -32,29 +32,27 @@
 #include <knowrob_moveit_core/knowrob_moveit_core.hpp>
 #include <string>
 #include <urdf/model.h>
-#include <knowrob_moveit_msgs/CollisionCheck.h>
+#include <knowrob_moveit_msgs/CheckCollisions.h>
 
-bool callback(knowrob_moveit_msgs::CollisionCheck::Request& request, 
-    knowrob_moveit_msgs::CollisionCheck::Response& response)
+bool callback(knowrob_moveit_msgs::CheckCollisions::Request& request, 
+    knowrob_moveit_msgs::CheckCollisions::Response& response)
 {
+  ROS_DEBUG("KnowRob-MoveIt check_collisions called.");
+
   urdf::Model urdf;
   if (!urdf.initString(request.urdf_model))
   {
-    ROS_ERROR("[check_collision] Could not parse given urdf. Aborting.");
+    ROS_ERROR("[check_collisions] Could not parse given urdf. Aborting.");
     return false;
   }
 
   srdf::Model srdf;
-//  std::string empty_srdf_spec = "<?xml version=\"1.0\"?><robot name=\"pr2\"></robot>";
-//  if (!srdf.initString(urdf, empty_srdf_spec))
-//  {
-//    ROS_ERROR("Could not initialize semantic robot model from specification.");
-//    return 0;
-//  }
 
   planning_scene::PlanningScene planning_scene(
       boost::shared_ptr<const urdf::Model>(&urdf),
       boost::shared_ptr<const srdf::Model>(&srdf));
+
+  ROS_DEBUG("KnowRob-MoveIt check_collisions finished.");
 
   return true;
 }
@@ -65,9 +63,9 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "planning_scene");
   ros::NodeHandle nh("~");
 
-  ros::ServiceServer service = nh.advertiseService("check_collision", callback);
+  ros::ServiceServer service = nh.advertiseService("check_collisions", callback);
 
-  ROS_DEBUG("KnowRob-MoveIt collision checker up.");
+  ROS_DEBUG("KnowRob-MoveIt planning scene up.");
 
   ros::spin();
 

@@ -1,3 +1,5 @@
 <launch>
+  <param name="robot_description" textfile="$(find knowrob_moveit_core)/test_data/pr2.urdf" />
+
   <node pkg="knowrob_moveit_core" type="planning_scene" name="planning_scene"/>
 </launch>
