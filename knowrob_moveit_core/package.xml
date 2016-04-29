@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>knowrob_moveit</name>
+  <name>knowrob_moveit_core</name>
   <version>0.0.1</version>
   <description>
-    Wraps the collision checking capabilities of MoveIt for KnowRob.
+    Wraps the various capabilities of MoveIt from the package moveit_core for KnowRob.
   </description>
 
   <maintainer email="georg.bartels@cs.uni-bremen.de">Georg Bartels</maintainer>

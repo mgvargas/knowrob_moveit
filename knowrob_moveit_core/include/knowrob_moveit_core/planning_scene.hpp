@@ -13,8 +13,7 @@
  *   and/or other materials provided with the distribution.
  * 
  * * Neither the name of Institute for Artificial Intelligence nor the names of its
- *   contributors may be used to endorse or promote products derived from
- *   this software without specific prior written permission.
+ *   contributors may be used to endorse or promote products derived from *   this software without specific prior written permission.
  * 
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
@@ -28,46 +27,18 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include <ros/ros.h>
-#include <knowrob_moveit/knowrob_moveit.hpp>
-#include <string>
-#include <urdf/model.h>
+#ifndef KNOWROB_MOVEIT_CORE_PLANNING_SCENE_HPP 
+#define KNOWROB_MOVEIT_CORE_PLANNING_SCENE_HPP 
 
-int main(int argc, char **argv)
+#include <moveit/planning_scene/planning_scene.h>
+#include <sensor_msgs/JointState.h>
+#include <vector>
+
+namespace knowrob_moveit_core
 {
-  ros::init(argc, argv, "planning_scene");
-  ros::NodeHandle nh("~");
-
-  std::string robot_description;
-  if (!nh.getParam("robot_description", robot_description))
+  class PlanningScene
   {
-    ROS_ERROR("Parameter 'robot_description' not found in namespace '%s'.", 
-        nh.getNamespace().c_str());
-    return 0;
-  }
 
-  urdf::Model urdf;
-  if (!urdf.initString(robot_description))
-  {
-    ROS_ERROR("Could not parse robot description.");
-    return 0;
-  }
-
-  srdf::Model srdf;
-//  std::string empty_srdf_spec = "<?xml version=\"1.0\"?><robot name=\"pr2\"></robot>";
-//  if (!srdf.initString(urdf, empty_srdf_spec))
-//  {
-//    ROS_ERROR("Could not initialize semantic robot model from specification.");
-//    return 0;
-//  }
-
-  planning_scene::PlanningScene planning_scene(
-      boost::shared_ptr<const urdf::Model>(&urdf),
-      boost::shared_ptr<const srdf::Model>(&srdf));
-
-  // TODO: implement me
-  ROS_DEBUG("KnowRob-MoveIt collision checker up.");
-  ros::spin();
-
-  return 0;
+  };
 }
+#endif // KNOWROB_MOVEIT_CORE_PLANNING_SCENE_HPP

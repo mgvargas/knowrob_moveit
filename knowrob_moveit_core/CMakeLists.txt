@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(knowrob_moveit)
+project(knowrob_moveit_core)
 
 find_package(catkin REQUIRED 
   roscpp 
@@ -27,9 +27,9 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 ## either from message generation or dynamic reconfigure
 # add_dependencies(knowrob_collision_checking ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-add_executable(planning_scene_node src/${PROJECT_NAME}/collision_checker_node.cpp)
-add_dependencies(planning_scene_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(planning_scene_node ${catkin_LIBRARIES})
+add_executable(planning_scene src/${PROJECT_NAME}/planning_scene_node.cpp)
+add_dependencies(planning_scene ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(planning_scene ${catkin_LIBRARIES})
 
 ## Add gtest based cpp test target and link libraries
 # catkin_add_gtest(${PROJECT_NAME}-test test/test_knowrob_collision_checking.cpp)
