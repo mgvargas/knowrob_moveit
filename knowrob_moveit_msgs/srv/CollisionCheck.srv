@@ -1,0 +1,5 @@
+string urdf_model
+sensor_msgs/JointState joint_states
+moveit_msgs/CollisionObject[] collision_objects
+---
+moveit_msgs/ContactInformation[] contacts
