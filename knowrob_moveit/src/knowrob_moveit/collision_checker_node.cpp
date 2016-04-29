@@ -46,13 +46,24 @@ int main(int argc, char **argv)
     return 0;
   }
 
-  urdf::Model robot_model;
-  if (!robot_model.initString(robot_description))
+  urdf::Model urdf;
+  if (!urdf.initString(robot_description))
   {
     ROS_ERROR("Could not parse robot description.");
     return 0;
   }
 
+  srdf::Model srdf;
+//  std::string empty_srdf_spec = "<?xml version=\"1.0\"?><robot name=\"pr2\"></robot>";
+//  if (!srdf.initString(urdf, empty_srdf_spec))
+//  {
+//    ROS_ERROR("Could not initialize semantic robot model from specification.");
+//    return 0;
+//  }
+
+  planning_scene::PlanningScene planning_scene(
+      boost::shared_ptr<const urdf::Model>(&urdf),
+      boost::shared_ptr<const srdf::Model>(&srdf));
 
   // TODO: implement me
   ROS_DEBUG("KnowRob-MoveIt collision checker up.");
