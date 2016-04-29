@@ -32,25 +32,16 @@
 #include <knowrob_moveit_core/knowrob_moveit_core.hpp>
 #include <string>
 #include <urdf/model.h>
+#include <knowrob_moveit_msgs/CollisionCheck.h>
 
-int main(int argc, char **argv)
+bool callback(knowrob_moveit_msgs::CollisionCheck::Request& request, 
+    knowrob_moveit_msgs::CollisionCheck::Response& response)
 {
-  ros::init(argc, argv, "planning_scene");
-  ros::NodeHandle nh("~");
-
-  std::string robot_description;
-  if (!nh.getParam("robot_description", robot_description))
-  {
-    ROS_ERROR("Parameter 'robot_description' not found in namespace '%s'.", 
-        nh.getNamespace().c_str());
-    return 0;
-  }
-
   urdf::Model urdf;
-  if (!urdf.initString(robot_description))
+  if (!urdf.initString(request.urdf_model))
   {
-    ROS_ERROR("Could not parse robot description.");
-    return 0;
+    ROS_ERROR("[check_collision] Could not parse given urdf. Aborting.");
+    return false;
   }
 
   srdf::Model srdf;
@@ -65,8 +56,19 @@ int main(int argc, char **argv)
       boost::shared_ptr<const urdf::Model>(&urdf),
       boost::shared_ptr<const srdf::Model>(&srdf));
 
-  // TODO: implement me
+  return true;
+}
+
+
+int main(int argc, char **argv)
+{
+  ros::init(argc, argv, "planning_scene");
+  ros::NodeHandle nh("~");
+
+  ros::ServiceServer service = nh.advertiseService("check_collision", callback);
+
   ROS_DEBUG("KnowRob-MoveIt collision checker up.");
+
   ros::spin();
 
   return 0;
