@@ -1,5 +1,18 @@
 <launch>
   <param name="robot_description" textfile="$(find knowrob_moveit_core)/test_data/pr2.urdf" />
+ 
+  <rosparam param="collision_free_config" 
+       file="$(find knowrob_moveit_core)/test_data/collision_free_config.yaml" />
 
   <node pkg="knowrob_moveit_core" type="planning_scene" name="planning_scene"/>
+
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" >
+    <param name="rate" value="200" />
+    <param name="use_gui" value="True" />
+    <param name="publish_default_velocities" value="True" />
+    <param name="publish_default_efforts" value="True" />
+  </node>
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
+
 </launch>

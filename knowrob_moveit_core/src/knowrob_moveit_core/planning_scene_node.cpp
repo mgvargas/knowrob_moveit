@@ -33,24 +33,29 @@
 #include <string>
 #include <urdf/model.h>
 #include <knowrob_moveit_msgs/CheckCollisions.h>
+#include <moveit_msgs/PlanningScene.h>
 
 bool callback(knowrob_moveit_msgs::CheckCollisions::Request& request, 
     knowrob_moveit_msgs::CheckCollisions::Response& response)
 {
   ROS_DEBUG("KnowRob-MoveIt check_collisions called.");
 
-  urdf::Model urdf;
-  if (!urdf.initString(request.urdf_model))
+  boost::shared_ptr<urdf::Model> urdf_ptr(new urdf::Model());
+  if (!urdf_ptr->initString(request.urdf_model))
   {
     ROS_ERROR("[check_collisions] Could not parse given urdf. Aborting.");
     return false;
   }
 
-  srdf::Model srdf;
+  boost::shared_ptr<const srdf::Model> srdf_ptr(new srdf::Model());
+  boost::shared_ptr<const urdf::Model> urdf_const_ptr = urdf_ptr;
 
-  planning_scene::PlanningScene planning_scene(
-      boost::shared_ptr<const urdf::Model>(&urdf),
-      boost::shared_ptr<const srdf::Model>(&srdf));
+  planning_scene::PlanningScene ps(urdf_const_ptr, srdf_ptr);
+
+  moveit_msgs::PlanningScene diff_ps_msg;
+  diff_ps_msg.is_diff = true;
+  diff_ps_msg.robot_state.joint_state = request.joint_states;
+  ps.setPlanningSceneDiffMsg(diff_ps_msg);
 
   ROS_DEBUG("KnowRob-MoveIt check_collisions finished.");
 
