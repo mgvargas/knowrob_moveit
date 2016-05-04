@@ -70,6 +70,8 @@ std::vector<moveit_msgs::ContactInformation> collisionResultToMsg(collision_dete
 
 std::vector<moveit_msgs::ContactInformation> calculate_collisions(planning_scene::PlanningScene& ps)
 {
+  ROS_INFO("KnowRob-MoveIt check_collisions started.");
+
   collision_detection::CollisionRequest collision_request;
   collision_detection::CollisionResult collision_result;
   collision_request.contacts = true;

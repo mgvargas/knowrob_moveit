@@ -6,12 +6,14 @@ find_package(catkin REQUIRED COMPONENTS
   moveit_core 
   message_runtime
   knowrob_moveit_msgs
+  sensor_msgs
+  std_srvs
 )
 
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES knowrob_collision_checking
-  CATKIN_DEPENDS knowrob_moveit_msgs
+#  CATKIN_DEPENDS message_runtime knowrob_moveit_msgs sensor_msgs std_srvs
 #  DEPENDS system_lib
 )
 
@@ -30,6 +32,10 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 add_executable(planning_scene src/${PROJECT_NAME}/planning_scene_node.cpp)
 add_dependencies(planning_scene ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(planning_scene ${catkin_LIBRARIES})
+
+add_executable(planning_scene_client src/${PROJECT_NAME}/planning_scene_client.cpp)
+add_dependencies(planning_scene_client ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(planning_scene_client ${catkin_LIBRARIES})
 
 ## Add gtest based cpp test target and link libraries
 # catkin_add_gtest(${PROJECT_NAME}-test test/test_knowrob_collision_checking.cpp)
