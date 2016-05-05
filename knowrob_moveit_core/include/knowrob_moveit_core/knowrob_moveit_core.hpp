@@ -32,5 +32,6 @@
 #define KNOWROB_MOVEIT_CORE_KNOWROB_MOVEIT_CORE_HPP 
 
 #include <knowrob_moveit_core/planning_scene.hpp>
+#include <knowrob_moveit_core/utils.hpp>
 
 #endif // KNOWROB_MOVEIT_CORE_KNOWROB_MOVEIT_CORE_HPP
