@@ -61,6 +61,7 @@ namespace knowrob_moveit_core
         ROS_INFO("KnowRob-MoveIt check_collisions called.");
       
         try{
+          // TODO: use collision objects
           response.contacts = planning_scene_.checkCollisions(request.urdf_model, request.srdf_model,
               request.joint_states);
         }
