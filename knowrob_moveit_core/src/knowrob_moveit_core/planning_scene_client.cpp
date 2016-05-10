@@ -27,7 +27,7 @@ class PlanningSceneClient
      robot_description_ = readParam(nh_, "/robot_description");
      moveit_config_ = readParam(nh_, "/moveit_config");
      nh_.subscribe("/joint_states", 1, &PlanningSceneClient::callback, this);
-     collision_service_ = nh_.serviceClient<knowrob_moveit_msgs::CheckCollisions>("/planning_scene/check_collisions");
+     collision_service_ = nh_.serviceClient<knowrob_moveit_msgs::CheckCollisions>("/planning_scene_server/check_collisions");
      trigger_service_ = nh_.advertiseService("trigger", &PlanningSceneClient::trigger_callback, this);
     }
 

@@ -27,8 +27,8 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef KNOWROB_MOVEIT_CORE_PLANNING_SCENE_HPP 
-#define KNOWROB_MOVEIT_CORE_PLANNING_SCENE_HPP 
+#ifndef KNOWROB_MOVEIT_CORE_PLANNING_SCENE_SERVER_HPP 
+#define KNOWROB_MOVEIT_CORE_PLANNING_SCENE_SERVER_HPP 
 
 #include <knowrob_moveit_core/utils.hpp>
 #include <moveit/planning_scene/planning_scene.h>
@@ -41,18 +41,18 @@
 namespace knowrob_moveit_core
 {
   // TODO: separate into ROS-dependent and ROS-agnostic functionality
-  class PlanningSceneService
+  class PlanningSceneServer
   {
     public:
   
-      PlanningSceneService(const ros::NodeHandle& nh) : nh_( nh )
+      PlanningSceneServer(const ros::NodeHandle& nh) : nh_( nh )
       {}
     
-      ~PlanningSceneService() {}
+      ~PlanningSceneServer() {}
   
       void start()
       {
-        service_ = nh_.advertiseService("check_collisions", &PlanningSceneService::callback, this);
+        service_ = nh_.advertiseService("check_collisions", &PlanningSceneServer::callback, this);
       }
   
     private:
@@ -142,4 +142,4 @@ namespace knowrob_moveit_core
   };
 }
 
-#endif // KNOWROB_MOVEIT_CORE_PLANNING_SCENE_HPP
+#endif // KNOWROB_MOVEIT_CORE_PLANNING_SCENE_SERVER_HPP

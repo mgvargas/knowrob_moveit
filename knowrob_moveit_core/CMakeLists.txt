@@ -30,9 +30,9 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 ## either from message generation or dynamic reconfigure
 # add_dependencies(knowrob_collision_checking ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
-add_executable(planning_scene src/${PROJECT_NAME}/planning_scene_node.cpp)
-add_dependencies(planning_scene ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
-target_link_libraries(planning_scene ${catkin_LIBRARIES})
+add_executable(planning_scene_server src/${PROJECT_NAME}/planning_scene_server.cpp)
+add_dependencies(planning_scene_server ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(planning_scene_server ${catkin_LIBRARIES})
 
 add_executable(planning_scene_client src/${PROJECT_NAME}/planning_scene_client.cpp)
 add_dependencies(planning_scene_client ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})

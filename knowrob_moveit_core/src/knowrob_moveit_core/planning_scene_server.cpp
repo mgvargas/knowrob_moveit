@@ -33,10 +33,10 @@
 
 int main(int argc, char **argv)
 {
-  ros::init(argc, argv, "planning_scene");
+  ros::init(argc, argv, "planning_scene_server");
   ros::NodeHandle nh("~");
 
-  knowrob_moveit_core::PlanningSceneService psserver(nh);
+  knowrob_moveit_core::PlanningSceneServer psserver(nh);
   try
   {
     psserver.start();
