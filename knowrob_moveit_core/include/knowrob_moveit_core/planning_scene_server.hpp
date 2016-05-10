@@ -32,7 +32,7 @@
 
 #include <knowrob_moveit_core/planning_scene.hpp>
 #include <knowrob_moveit_core/utils.hpp>
-#include <knowrob_moveit_msgs/CheckCollisions.h>
+#include <knowrob_moveit_core/CheckCollisions.h>
 
 namespace knowrob_moveit_core
 {
@@ -55,8 +55,8 @@ namespace knowrob_moveit_core
       ros::ServiceServer service_;
       PlanningScene planning_scene_;
 
-      bool callback(knowrob_moveit_msgs::CheckCollisions::Request& request, 
-          knowrob_moveit_msgs::CheckCollisions::Response& response)
+      bool callback(knowrob_moveit_core::CheckCollisions::Request& request, 
+          knowrob_moveit_core::CheckCollisions::Response& response)
       {
         ROS_INFO("KnowRob-MoveIt check_collisions called.");
       

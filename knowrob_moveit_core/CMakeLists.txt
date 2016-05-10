@@ -5,16 +5,28 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 find_package(catkin REQUIRED COMPONENTS
   roscpp 
   moveit_core 
+  message_generation
   message_runtime
-  knowrob_moveit_msgs
+  moveit_msgs
   sensor_msgs
   std_srvs
+)
+
+add_service_files(
+  FILES
+  CheckCollisions.srv
+)
+
+generate_messages(
+  DEPENDENCIES
+  sensor_msgs
+  moveit_msgs
 )
 
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES knowrob_collision_checking
-#  CATKIN_DEPENDS message_runtime knowrob_moveit_msgs sensor_msgs std_srvs
+  CATKIN_DEPENDS message_runtime moveit_msgs sensor_msgs std_srvs
 #  DEPENDS system_lib
 )
 
