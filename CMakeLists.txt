@@ -11,6 +11,10 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_srvs
 )
+add_message_files(
+  FILES
+  ContactList.msg
+)
 
 add_service_files(
   FILES
