@@ -8,8 +8,8 @@ find_package(catkin REQUIRED COMPONENTS
   message_generation
   message_runtime
   moveit_msgs
+  visualization_msgs
   sensor_msgs
-  std_srvs
 )
 add_message_files(
   FILES
@@ -31,7 +31,7 @@ generate_messages(
 catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES knowrob_collision_checking
-  CATKIN_DEPENDS message_runtime moveit_msgs sensor_msgs std_srvs
+  CATKIN_DEPENDS message_runtime moveit_msgs visualization_msgs sensor_msgs
 #  DEPENDS system_lib
 )
 
@@ -54,6 +54,11 @@ target_link_libraries(planning_scene_server ${catkin_LIBRARIES})
 add_executable(planning_scene_client src/${PROJECT_NAME}/planning_scene_client.cpp)
 add_dependencies(planning_scene_client ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(planning_scene_client ${catkin_LIBRARIES})
+
+add_executable(contact_marker_visualizer src/${PROJECT_NAME}/contact_marker_visualizer.cpp)
+add_dependencies(contact_marker_visualizer ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(contact_marker_visualizer ${catkin_LIBRARIES})
+
 
 ## Add gtest based cpp test target and link libraries
 # catkin_add_gtest(${PROJECT_NAME}-test test/test_knowrob_collision_checking.cpp)
