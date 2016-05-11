@@ -1,0 +1,31 @@
+<launch>
+  <param name="robot_description" textfile="$(find knowrob_moveit)/test_data/pr2.urdf" />
+
+  <param name="moveit_config" textfile="$(find knowrob_moveit)/test_data/pr2.srdf" />
+
+  <rosparam param="collision_free_config" 
+       file="$(find knowrob_moveit)/test_data/collision_free_config.yaml" />
+
+  <node pkg="knowrob_moveit" type="planning_scene_server" 
+        name="planning_scene_server" output="screen"/>
+
+  <node pkg="knowrob_moveit" type="planning_scene_client" 
+        name="planning_scene_client" output="screen"/>
+
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" >
+    <param name="rate" value="200" />
+    <param name="use_gui" value="True" />
+    <param name="publish_default_velocities" value="True" />
+    <param name="publish_default_efforts" value="True" />
+  </node>
+
+  <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
+
+  <node pkg="tf" type="static_transform_publisher" name="fake_odometry" 
+        args="0 0 0 0 0 0 odom_combined base_footprint 100" />
+
+  <node pkg="knowrob_moveit" type="contact_marker_visualizer" name="contact_marker_visualizer" >
+    <remap from="~contacts" to="/planning_scene_client/contacts" />
+  </node>
+
+</launch>

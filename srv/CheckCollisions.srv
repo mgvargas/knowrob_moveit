@@ -1,0 +1,7 @@
+string urdf_model
+string srdf_model
+sensor_msgs/JointState joint_states
+moveit_msgs/CollisionObject[] collision_objects
+int64 max_contacts
+---
+moveit_msgs/ContactInformation[] contacts
