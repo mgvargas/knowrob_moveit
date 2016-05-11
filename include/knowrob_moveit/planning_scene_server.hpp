@@ -63,7 +63,7 @@ namespace knowrob_moveit
         try{
           // TODO: use collision objects
           response.contacts = planning_scene_.checkCollisions(request.urdf_model, request.srdf_model,
-              request.joint_states);
+              request.joint_states, request.max_contacts);
         }
         catch(const std::exception& e)
         {

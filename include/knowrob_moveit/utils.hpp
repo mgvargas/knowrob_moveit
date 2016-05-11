@@ -31,12 +31,13 @@
 #ifndef KNOWROB_MOVEIT_UTILS_HPP 
 #define KNOWROB_MOVEIT_UTILS_HPP 
 
+#include <std_msgs/Header.h>
 #include <moveit_msgs/ContactInformation.h>
 #include <moveit/collision_detection/collision_tools.h>
 
 // TODO: make argument const
 inline std::vector<moveit_msgs::ContactInformation> collisionResultToMsg(
-    collision_detection::CollisionResult& collision_result)
+    collision_detection::CollisionResult& collision_result, const std_msgs::Header& header)
 {
   std::vector<moveit_msgs::ContactInformation> result;
 
@@ -46,6 +47,7 @@ inline std::vector<moveit_msgs::ContactInformation> collisionResultToMsg(
          it2 != it->second.end(); ++it2)
     {
       moveit_msgs::ContactInformation msg;
+      msg.header = header;
       collision_detection::contactToMsg(*it2, msg);
       result.push_back(msg);
     }

@@ -19,6 +19,7 @@ add_message_files(
 add_service_files(
   FILES
   CheckCollisions.srv
+  UInt64Trigger.srv
 )
 
 generate_messages(

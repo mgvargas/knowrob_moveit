@@ -2,7 +2,7 @@
 #include <knowrob_moveit/CheckCollisions.h>
 #include <knowrob_moveit/ContactList.h>
 #include <sensor_msgs/JointState.h>
-#include <std_srvs/Empty.h>
+#include <knowrob_moveit/UInt64Trigger.h>
 #include <stdexcept>
 
 std::string readParam(const ros::NodeHandle& nh, const std::string& parameter_name)
@@ -52,7 +52,8 @@ class PlanningSceneClient
       joint_states_ = *message;
     }
 
-    bool trigger_callback(std_srvs::Empty::Request& request, std_srvs::Empty::Response& response)
+    bool trigger_callback(knowrob_moveit::UInt64Trigger::Request& request, 
+        knowrob_moveit::UInt64Trigger::Response& response)
     {
       debug_pub_.publish(joint_states_);
 
@@ -60,17 +61,23 @@ class PlanningSceneClient
       srv.request.urdf_model = robot_description_;
       srv.request.srdf_model = moveit_config_;
       srv.request.joint_states = joint_states_;
+      srv.request.max_contacts = request.data;
      
       if (collision_service_.call(srv))
       {
         knowrob_moveit::ContactList msg;
         msg.contacts = srv.response.contacts;
         collision_pub_.publish(msg);
-        ROS_INFO("Detected %lu collisions.", srv.response.contacts.size());
+        response.success = true;
+        response.message =  "Detected " + std::to_string(srv.response.contacts.size()) + " collisions.";
         return true;
       }
       else
+      {
+        response.success = false;
+        response.message = "Service call to planning scene failed.";
         return false;
+      }
     }
 };
 

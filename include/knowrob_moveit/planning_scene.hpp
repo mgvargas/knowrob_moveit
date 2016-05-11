@@ -38,6 +38,15 @@
 
 namespace knowrob_moveit
 {
+  // TODO: move this somewhere else?
+  inline std_msgs::Header makeHeader(const ros::Time& stamp, const std::string& frame_id)
+  {
+    std_msgs::Header msg;
+    msg.stamp = stamp;
+    msg.frame_id = frame_id;
+    return msg;
+  }
+
   // TODO: get rid of calls to ROS_INFO
   class PlanningScene
   {
@@ -47,13 +56,12 @@ namespace knowrob_moveit
       ~PlanningScene() {}
        
       std::vector<moveit_msgs::ContactInformation> checkCollisions(const std::string& urdf_model,
-          const std::string& srdf_model, const sensor_msgs::JointState& joint_states)
+          const std::string& srdf_model, const sensor_msgs::JointState& joint_states, 
+          size_t max_contacts)
       {
         createPlanningScene(urdf_model, srdf_model);
     
-        updateJointStates(joint_states);
-     
-        return calculate_collisions();
+        return calculate_collisions(max_contacts, joint_states);
       }
   
     private:
@@ -105,23 +113,26 @@ namespace knowrob_moveit
         ROS_INFO("Update planning scene done.");
       }
   
-      std::vector<moveit_msgs::ContactInformation> calculate_collisions()
+      std::vector<moveit_msgs::ContactInformation> calculate_collisions(size_t max_contacts,
+          const sensor_msgs::JointState& joint_states)
       {
+        updateJointStates(joint_states);
+
         ROS_INFO("KnowRob-MoveIt check_collisions started.");
       
         collision_detection::CollisionRequest collision_request;
         collision_detection::CollisionResult collision_result;
-        // TODO: check whether those are useful defaults
         collision_request.contacts = true;
-        collision_request.max_contacts = 10;
+        collision_request.max_contacts = max_contacts;
         collision_result.clear();
         ps_ptr_->checkCollision(collision_request, collision_result);
       
         ROS_INFO("KnowRob-MoveIt check_collisions finished.");
       
-        return collisionResultToMsg(collision_result);
+        std_msgs::Header header = makeHeader(joint_states.header.stamp, 
+            ps_ptr_->getRobotModel()->getModelFrame());
+        return collisionResultToMsg(collision_result, header);
       }
- 
   };
 }
 
