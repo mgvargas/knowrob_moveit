@@ -28,31 +28,26 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef KNOWROB_MOVEIT_CORE_UTILS_HPP 
-#define KNOWROB_MOVEIT_CORE_UTILS_HPP 
+#include <ros/ros.h>
+#include <knowrob_moveit/knowrob_moveit.hpp>
 
-#include <moveit_msgs/ContactInformation.h>
-#include <moveit/collision_detection/collision_tools.h>
-
-// TODO: make argument const
-inline std::vector<moveit_msgs::ContactInformation> collisionResultToMsg(
-    collision_detection::CollisionResult& collision_result)
+int main(int argc, char **argv)
 {
-  std::vector<moveit_msgs::ContactInformation> result;
+  ros::init(argc, argv, "planning_scene_server");
+  ros::NodeHandle nh("~");
 
-  for (collision_detection::CollisionResult::ContactMap::iterator it=collision_result.contacts.begin(); 
-       it!=collision_result.contacts.end(); ++it)
-    for (std::vector<collision_detection::Contact>::iterator it2=it->second.begin(); 
-         it2 != it->second.end(); ++it2)
-    {
-      moveit_msgs::ContactInformation msg;
-      collision_detection::contactToMsg(*it2, msg);
-      result.push_back(msg);
-    }
+  knowrob_moveit::PlanningSceneServer psserver(nh);
+  try
+  {
+    psserver.start();
+  }
+  catch(const std::exception& e)
+  {
+    ROS_ERROR("%s", e.what());
+    return 0;
+  }
 
-  ROS_INFO("Finished copying contacts.");
+  ros::spin();
 
-  return result;
+  return 0;
 }
-
-#endif // KNOWROB_MOVEIT_CORE_UTILS_HPP

@@ -1,15 +1,15 @@
 <launch>
-  <param name="robot_description" textfile="$(find knowrob_moveit_core)/test_data/pr2.urdf" />
+  <param name="robot_description" textfile="$(find knowrob_moveit)/test_data/pr2.urdf" />
 
-  <param name="moveit_config" textfile="$(find knowrob_moveit_core)/test_data/pr2.srdf" />
+  <param name="moveit_config" textfile="$(find knowrob_moveit)/test_data/pr2.srdf" />
 
   <rosparam param="collision_free_config" 
-       file="$(find knowrob_moveit_core)/test_data/collision_free_config.yaml" />
+       file="$(find knowrob_moveit)/test_data/collision_free_config.yaml" />
 
-  <node pkg="knowrob_moveit_core" type="planning_scene_server" 
+  <node pkg="knowrob_moveit" type="planning_scene_server" 
         name="planning_scene_server" output="screen"/>
 
-  <node pkg="knowrob_moveit_core" type="planning_scene_client" 
+  <node pkg="knowrob_moveit" type="planning_scene_client" 
         name="planning_scene_client" output="screen"/>
 
   <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" >

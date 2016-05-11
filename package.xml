@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>knowrob_moveit_core</name>
+  <name>knowrob_moveit</name>
   <version>0.0.1</version>
   <description>
     Wraps the various capabilities of MoveIt from the package moveit_core for KnowRob.

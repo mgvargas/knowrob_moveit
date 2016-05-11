@@ -27,16 +27,16 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef KNOWROB_MOVEIT_CORE_PLANNING_SCENE_HPP 
-#define KNOWROB_MOVEIT_CORE_PLANNING_SCENE_HPP 
+#ifndef KNOWROB_MOVEIT_PLANNING_SCENE_HPP 
+#define KNOWROB_MOVEIT_PLANNING_SCENE_HPP 
 
-#include <knowrob_moveit_core/utils.hpp>
+#include <knowrob_moveit/utils.hpp>
 #include <moveit/planning_scene/planning_scene.h>
 #include <urdf/model.h>
 #include <sensor_msgs/JointState.h>
 #include <functional>
 
-namespace knowrob_moveit_core
+namespace knowrob_moveit
 {
   // TODO: get rid of calls to ROS_INFO
   class PlanningScene
@@ -125,4 +125,4 @@ namespace knowrob_moveit_core
   };
 }
 
-#endif // KNOWROB_MOVEIT_CORE_PLANNING_SCENE_HPP
+#endif // KNOWROB_MOVEIT_PLANNING_SCENE_HPP
