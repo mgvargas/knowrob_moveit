@@ -21,4 +21,7 @@
 
   <node pkg="robot_state_publisher" type="robot_state_publisher" name="robot_state_publisher" />
 
+  <node pkg="tf" type="static_transform_publisher" name="fake_odometry" 
+        args="0 0 0 0 0 0 odom_combined base_footprint 100" />
+
 </launch>
