@@ -1,15 +1,31 @@
 <launch>
-  <param name="robot_description" textfile="$(find knowrob_moveit)/test_data/pr2.urdf" />
+  <arg name="boxy" default="true" />
+  <arg name="python" default="true" />
 
-  <param name="moveit_config" textfile="$(find knowrob_moveit)/test_data/pr2.srdf" />
+  <group unless="$(arg boxy)">
+    <param name="robot_description" textfile="$(find knowrob_moveit)/test_data/pr2.urdf" />
+    <param name="moveit_config" textfile="$(find knowrob_moveit)/test_data/pr2.srdf" />
+  </group>
+
+  <group if="$(arg boxy)">
+    <param name="robot_description" textfile="$(find knowrob_moveit)/test_data/boxy.urdf" />
+    <param name="moveit_config" textfile="$(find knowrob_moveit)/test_data/boxy.srdf" />
+  </group>
 
   <rosparam param="collision_free_config" 
        file="$(find knowrob_moveit)/test_data/collision_free_config.yaml" />
 
-  <node pkg="knowrob_moveit" type="planning_scene_server" 
+  <group if="$(arg python)">
+     <node pkg="knowrob_moveit" type="planning_scene_server.py"
         name="planning_scene_server" output="screen"/>
+  </group>
 
-  <node pkg="knowrob_moveit" type="planning_scene_client" 
+  <group unless="$(arg python)">
+     <node pkg="knowrob_moveit" type="planning_scene_server"
+        name="planning_scene_server" output="screen"/>
+  </group>
+
+  <node pkg="knowrob_moveit" type="planning_scene_client"
         name="planning_scene_client" output="screen"/>
 
   <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" >
